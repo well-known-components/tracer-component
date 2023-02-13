@@ -21,7 +21,7 @@ jobs:
       - name: Install
         run: npm ci
       - name: Lint
-        run: npm check:code && check:prettier
+        run: npm run check:code && npm run check:prettier
       - name: build
         run: npm run build
       - name: Test
