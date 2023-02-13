@@ -1,5 +1,5 @@
 {
-  "name": "tracer-component",
+  "name": "@well-known-components/tracer-component",
   "version": "0.1.0",
   "description": "Trace execution spans all across your application.",
   "main": "dist/index.js",
