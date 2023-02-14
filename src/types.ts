@@ -8,6 +8,11 @@ export type ITracerComponent = {
    */
   span<T>(name: string, tracedFunction: () => T, traceContext?: Omit<TraceContext, 'id' | 'data' | 'name'>): T
   /**
+   * Gets if the execution context is inside of a trace span or not.
+   * @returns true if it is inside of a trace span, false otherwise.
+   */
+  isInsideOfTraceSpan(): boolean
+  /**
    * Gets the current span id.
    * @returns The current span id if the function is executed inside of a trace span.
    * @throws NotInSpanError if executed outside of a scope.

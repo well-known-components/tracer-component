@@ -20,6 +20,20 @@ describe('when executing a span', () => {
   })
 })
 
+describe('when getting if an execution is inside of a trace span', () => {
+  describe('and it is inside of a trace span', () => {
+    it('should return true', () => {
+      return tracerComponent.span('test span', () => expect(tracerComponent.isInsideOfTraceSpan()).toBe(true), defaultContext)
+    })
+  })
+
+  describe('and it is not inside of a trace span', () => {
+    it('should return false', () => {
+      expect(tracerComponent.isInsideOfTraceSpan()).toBe(false)
+    })
+  })
+})
+
 describe('when getting the trace object', () => {
   describe('when inside of a span', () => {
     it('should return the trace object', () => {
