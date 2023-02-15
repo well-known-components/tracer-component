@@ -1,3 +1,4 @@
+import { AsyncLocalStorage } from 'node:async_hooks'
 import { buildTraceString, createTracerComponent, generateSpanId, generateTraceId, ITracerComponent, TraceContext } from '../src'
 import { NotInSpanError } from '../src/errors'
 
@@ -30,6 +31,14 @@ describe('when getting if an execution is inside of a trace span', () => {
   describe('and it is not inside of a trace span', () => {
     it('should return false', () => {
       expect(tracerComponent.isInsideOfTraceSpan()).toBe(false)
+    })
+  })
+
+  describe('and it is inside of a async local storage run but not inside of a span', () => {
+    const asyncLocalStorage = new AsyncLocalStorage<any>()
+
+    it('should return false', () => {
+      expect(asyncLocalStorage.run({}, () => tracerComponent.isInsideOfTraceSpan())).toBe(false)
     })
   })
 })

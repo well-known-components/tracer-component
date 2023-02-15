@@ -54,7 +54,14 @@ export function createTracerComponent(): ITracerComponent {
    * @returns true if it is inside of a trace span, false otherwise.
    */
   function isInsideOfTraceSpan(): boolean {
-    return asyncLocalStorage.getStore() !== undefined
+    const currentContext = asyncLocalStorage.getStore()
+    return (
+      currentContext !== undefined &&
+      currentContext.parentId !== undefined &&
+      currentContext.traceId !== undefined &&
+      currentContext.traceFlags !== undefined &&
+      currentContext.version !== undefined
+    )
   }
 
   /**
