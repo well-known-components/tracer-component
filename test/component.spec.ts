@@ -21,6 +21,28 @@ describe('when executing a span', () => {
   })
 })
 
+describe('when recursively executing an span', () => {
+  let spanIds: Set<string>
+  beforeEach(() => {
+    spanIds = new Set()
+  })
+
+  const recursiveFibonacci = (i: number): number =>
+    tracerComponent.span(`recursive-fibo ${i}`, () => {
+      spanIds.add(tracerComponent.getSpanId())
+      return i === 0 || i === 1 ? i : recursiveFibonacci(i - 1) + recursiveFibonacci(i - 2)
+    })
+
+  it('should return the recursive result', () => {
+    expect(recursiveFibonacci(6)).toBe(8)
+  })
+
+  it('should create an individual and different trace span on each recursion', () => {
+    recursiveFibonacci(2)
+    expect(spanIds.size).toBe(3)
+  })
+})
+
 describe('when getting if an execution is inside of a trace span', () => {
   describe('and it is inside of a trace span', () => {
     it('should return true', () => {
