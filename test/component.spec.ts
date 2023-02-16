@@ -1,5 +1,6 @@
 import { AsyncLocalStorage } from 'node:async_hooks'
-import { buildTraceString, createTracerComponent, generateSpanId, generateTraceId, ITracerComponent, TraceContext } from '../src'
+import type { ITracerComponent, TraceContext } from '@well-known-components/interfaces'
+import { buildTraceString, createTracerComponent, generateSpanId, generateTraceId } from '../src'
 import { NotInSpanError } from '../src/errors'
 
 let tracerComponent: ITracerComponent
@@ -8,10 +9,10 @@ let defaultContext: Omit<TraceContext, 'id' | 'data' | 'name'> & { data?: any }
 beforeEach(() => {
   tracerComponent = createTracerComponent()
   defaultContext = {
-    version: '00',
+    version: 0,
     traceId: generateTraceId(),
     parentId: generateSpanId(),
-    traceFlags: '00'
+    traceFlags: 0
   }
 })
 
