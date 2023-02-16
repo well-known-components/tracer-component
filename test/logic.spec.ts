@@ -1,12 +1,12 @@
 import { INVALID_SPAN_ID } from '../src/constants'
+import type { TraceContext } from '@well-known-components/interfaces'
 import { buildTraceContext, buildTraceString, generateSpanId, generateTraceId } from '../src/logic'
-import { TraceContext } from '../src/types'
 
 describe('when building a trace string', () => {
-  const version = '00'
+  const version = 0
   const traceId = 'aTraceId'
   const parentId = 'aParentId'
-  const traceFlags = '01'
+  const traceFlags = 1
 
   it('should create a string based in the traceparent header', () => {
     expect(buildTraceString({ version, traceId, parentId, traceFlags })).toBe(`${version}-${traceId}-${parentId}-${traceFlags}`)
@@ -32,8 +32,8 @@ describe('when building a trace context', () => {
     traceContextBuilderInput = {
       name: 'aName',
       traceId: 'aTraceId',
-      version: '00',
-      traceFlags: '00',
+      version: 0,
+      traceFlags: 0,
       traceState: { aTraceState: 'aTraceStateValue' },
       data: {}
     }

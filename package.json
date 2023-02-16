@@ -39,6 +39,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@well-known-components/interfaces": "^1.2.0",
     "tslib": "^2.5.0"
   },
   "files": [

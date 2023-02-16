@@ -1,13 +1,13 @@
 import { randomBytes } from 'node:crypto'
+import type { Trace, TraceContext } from '@well-known-components/interfaces'
 import { INVALID_SPAN_ID } from './constants'
-import { Trace, TraceContext } from './types'
 
 /**
  * Builds a trace parent string representation based on its properties.
  * @param traceParent - The trace parent.
  */
 export function buildTraceString(traceParent: Trace): string {
-  return `${traceParent.version}-${traceParent.traceId}-${traceParent.parentId}-${traceParent.traceFlags}`
+  return `${traceParent.version.toString(16)}-${traceParent.traceId}-${traceParent.parentId}-${traceParent.traceFlags.toString(16)}`
 }
 
 /**
@@ -48,8 +48,8 @@ export function buildTraceContext<T>({
   name: string
   parentId?: string
   traceId: string
-  version: string
-  traceFlags: string
+  version: number
+  traceFlags: number
   traceState?: Record<string, string>
   data?: T
 }): TraceContext {

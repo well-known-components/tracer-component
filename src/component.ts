@@ -1,5 +1,5 @@
 import { AsyncLocalStorage } from 'node:async_hooks'
-import { ITracerComponent, TraceContext, Trace, TraceState } from './types'
+import { ITracerComponent, TraceContext, Trace, TraceState } from '@well-known-components/interfaces'
 import { buildTraceString, buildTraceContext, generateTraceId } from './logic'
 import { INVALID_SPAN_ID } from './constants'
 import { NotInSpanError } from './errors'
@@ -22,8 +22,8 @@ export function createTracerComponent(): ITracerComponent {
         name,
         parentId: traceContext.parentId,
         traceId: traceContext.traceId,
-        version: traceContext.version,
-        traceFlags: traceContext.traceFlags,
+        version: Number(traceContext.version),
+        traceFlags: Number(traceContext.traceFlags),
         traceState: traceContext.traceState,
         data: traceContext.data
       })
@@ -42,8 +42,8 @@ export function createTracerComponent(): ITracerComponent {
         name,
         parentId: INVALID_SPAN_ID,
         traceId: generateTraceId(),
-        version: '00',
-        traceFlags: '00'
+        version: 0,
+        traceFlags: 0
       })
     }
     return asyncLocalStorage.run(newContext, tracedFunction)
